@@ -3,6 +3,30 @@ const fs = require('fs')
 
 let objectId = 1
 
+const SYMBOL_MAP = {
+    '_honey': '🍯',
+    '_clay': '🪨',
+    '_larvae': '🐛',
+    '_defence': '🛡',
+    '_combatpower': '⚔️',
+    '_production': '⚒️',
+    '_x': '×',
+    '_d1': '⚀',
+    '_d2': '⚁',
+    '_d3': '⚂',
+    '_d4': '⚃',
+    '_d5': '⚄',
+    '_d6': '⚅',
+}
+
+function symbolReplace(str){
+    for (const s in SYMBOL_MAP) {
+        str = str.replace(s, SYMBOL_MAP[s])
+    }
+    
+    return str
+}
+
 function newCard(data){
     const card = {
         objectId: objectId,
@@ -10,7 +34,8 @@ function newCard(data){
         name: data.name,
         card_text: data.card_text,
         flavor_text: data.flavor_text,
-        defence: data.defence,
+        production_power: data.production_power,
+        combat_power: data.combat_power,
         cost: data.cost
     }
 
@@ -271,7 +296,7 @@ const cardData = [
     }),
 ]
 
-fs.writeFile('data/card_data.json', JSON.stringify(cardData), 'utf8', (err) => { 
+fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData)), 'utf8', (err) => { 
     if (err !== null) {
         console.log(err)
         return
@@ -279,7 +304,7 @@ fs.writeFile('data/card_data.json', JSON.stringify(cardData), 'utf8', (err) => {
     console.log("created card data file card_data.json") 
 })
 
-fs.writeFile('data/building_data.json', JSON.stringify(buildingData), 'utf8', (err) => {
+fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingData)), 'utf8', (err) => {
     if (err !== null) {
         console.log(err)
         return

@@ -28,7 +28,7 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="mm"
      inkscape:zoom="0.7071068"
-     inkscape:cx="259.50818"
+     inkscape:cx="258.80108"
      inkscape:cy="301.93459"
      inkscape:window-width="1920"
      inkscape:window-height="1011"
@@ -102,12 +102,13 @@
        x="-2.2204476e-07"
        y="-2.2204476e-07"
        ry="2.0921357e-07" /><image
-       width="0.019230116"
-       height="0.013157448"
+       width="0.019230117"
+       height="0.013157449"
        preserveAspectRatio="none"
        style="image-rendering:optimizeSpeed"
-       xlink:href="art/generated/76259_religious%20imagery%20depicting%20a%20tardigrade%20as%20an%20dre_xl-1024-v1-0.png"
+       xlink:href="../art/generated/76259_religious%20imagery%20depicting%20a%20tardigrade%20as%20an%20dre_xl-1024-v1-0.png"
        id="image1"
        x="0.00054082792"
        y="-0.013644697"
-       transform="rotate(90)" /></g></svg>
+       transform="rotate(90)"
+       inkscape:label="image1" /></g></svg>

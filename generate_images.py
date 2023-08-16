@@ -30,9 +30,9 @@ def get_buildings():
 
 # gets all the images and combines them into a spritesheet
 # based on the size of the first file and the specified dimensions
-def create_spritesheet(ss_filename, filenames, sheet_dimensions=(10, 7), margin=3):
+def create_spritesheet(ss_filename, filename_tuples, sheet_dimensions=(10, 7), margin=3):
     # Load the first image to get dimensions
-    img_sample = Image.open(filenames[0])
+    img_sample = Image.open(filename_tuples[0][0])
     width, height = img_sample.size
 
     # Adjust dimensions for margin
@@ -44,14 +44,21 @@ def create_spritesheet(ss_filename, filenames, sheet_dimensions=(10, 7), margin=
     sheet_height = sheet_dimensions[1] * total_height - margin  # Subtract the margin at the last row
     spritesheet = Image.new('RGBA', (sheet_width, sheet_height))
 
+    idx = 0
     # Iterate over each image and paste it onto the spritesheet
-    for idx, filename in enumerate(filenames):
+    for filename_tuple in filename_tuples:
+        filename = filename_tuple[0]
         img = Image.open(filename)
+     
+        amount = filename_tuple[1]
         
-        # Calculate the position to paste the image on the spritesheet
-        x = (idx % sheet_dimensions[0]) * total_width
-        y = (idx // sheet_dimensions[0]) * total_height
-        spritesheet.paste(img, (x, y))
+        for _ in range(amount):
+            # Calculate the position to paste the image on the spritesheet
+            x = (idx % sheet_dimensions[0]) * total_width
+            y = (idx // sheet_dimensions[0]) * total_height
+
+            spritesheet.paste(img, (x, y))
+            idx += 1
 
     # Save the spritesheet
     path = os.path.join(output_path, f'{ss_filename}.png')
@@ -139,6 +146,7 @@ def generate_building_images():
             svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
             svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
             svg_content = svg_content.replace('PL_OUTCOME', card_data['outcome_str'])
+            svg_content = svg_content.replace('PL_TIER', str(card_data['tier']))
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{card_data["name"]}'
@@ -157,7 +165,7 @@ def generate_building_images():
             print(args)
             subprocess.run(args)
 
-            card_imgs.append(output_image_path)
+            card_imgs.append((output_image_path, card_data['amount']))
 
         os.remove(svg_file_name)
 

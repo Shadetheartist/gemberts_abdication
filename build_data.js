@@ -31,8 +31,8 @@ const VALUES = {
     // minus because this gains resources
     [ACTIONS.discard_card]: -1,
     [ACTIONS.place_meeple]: -2, 
-    [ACTIONS.draw_card]: 2,
-    [ACTIONS.trash_card]: 2,
+    [ACTIONS.draw_card]: 1.5,
+    [ACTIONS.trash_card]: 1,
     [ACTIONS.explore]: 5,
 }
 
@@ -84,6 +84,7 @@ const SYMBOL_MAP = {
     '_combatpower': '⚔️',
     '_production': '⚒️',
     '_discard_card': '⏬',
+    '_draw_card': '🃏',
     '_x': '×',
     '_d1': "⚀",
     '_d2': "⚁",
@@ -131,6 +132,7 @@ function newCard(data){
     const card = {
         objectId: newObjectId(),
         type: 'card',
+        amount: data?.amount ?? 1,
         tier: data?.tier ?? 0,
         name: data?.name ?? "",
         card_text: data?.card_text ?? "",
@@ -152,9 +154,7 @@ function newOnus(data){
     const onus = {
         objectId: newObjectId(),
         type: 'onus',
-        // tier can indicate the cost this should target. 
-        // If the tier and the resource value are out of line 
-        // then a warning can be generated to aid in balance
+        amount: data?.amount ?? 1,
         tier: data?.tier ?? 0, 
         name: data?.name ?? "",
         flavor_text: data?.flavor_text ?? "",
@@ -173,6 +173,7 @@ function newBuilding(data){
     const building = {
         objectId: newObjectId(),
         type: 'building',
+        amount: data?.amount ?? 2,
         tier: data?.tier ?? 0,
         name: data?.name ?? "",
         card_text: data?.card_text ?? "",
@@ -196,9 +197,12 @@ function newBuilding(data){
 
 const buildingData = [
 
+    // tier 1 buildings get amount = 0 
+    // because they're on the board
     newBuilding({
         name: "Mud Pit",
         tier: 1,
+        amount: 0,
         flavor_text: "Muck about.",
         profits: newResourceSet({
             [RESOURCES.clay]: 2,
@@ -208,6 +212,7 @@ const buildingData = [
     newBuilding({
         name: "Mine",
         tier: 1,
+        amount: 0,
         flavor_text: "Strike the Earth.",
         profits: newResourceSet({
             [RESOURCES.metal]: 1,
@@ -218,6 +223,7 @@ const buildingData = [
         // this is a great pollen making plant
         name: "Hellebore Field", 
         tier: 1,
+        amount: 0,
         flavor_text: "Handsome Leaves.",
         profits: newResourceSet({
             [RESOURCES.honey]: 1,
@@ -227,6 +233,7 @@ const buildingData = [
     newBuilding({
         name: "Hatchery",
         tier: 1,
+        amount: 0,
         flavor_text: "Little bug, little bug.",
         cost: newResourceSet({
             [ACTIONS.discard_card]: 1,
@@ -235,6 +242,158 @@ const buildingData = [
             [RESOURCES.larvae]: 1,
         }),
     }),
+
+
+    // tier 2 -------
+
+    newBuilding({
+        name: "Orchid Field",
+        tier: 2,
+        flavor_text: "Soil to sustainence.",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 1,
+            [RESOURCES.honey]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Materials",
+        tier: 2,
+        flavor_text: "Creation arrives!",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 1,
+            [RESOURCES.metal]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Incubator",
+        tier: 2,
+        flavor_text: "Bigger bug, medium bug.",
+        profits: newResourceSet({
+            [RESOURCES.larvae]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Rich Soil",
+        tier: 2,
+        flavor_text: "Loam is love.",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 3,
+        }),
+    }),
+
+    newBuilding({
+        name: "Town Square",
+        tier: 2,
+        flavor_text: "Hustle n Bustle.",
+        profits: newResourceSet({
+            [ACTIONS.draw_card]: 2,
+        }),
+    }),
+
+    newBuilding({
+        name: "Workshop",
+        tier: 2,
+        flavor_text: "*Clank Clank*",
+        cost: newResourceSet({
+            [ACTIONS.discard_card]: 1,
+        }),
+        profits: newResourceSet({
+            [RESOURCES.metal]: 2,
+        }),
+    }),
+
+    newBuilding({
+        name: "Jelly Juicer",
+        tier: 2,
+        flavor_text: "It's juicy jelly.",
+        cost: newResourceSet({
+            [ACTIONS.discard_card]: 1,
+        }),
+        profits: newResourceSet({
+            [RESOURCES.honey]: 2,
+        }),
+    }),
+
+    newBuilding({
+        name: "Lunch Room",
+        tier: 2,
+        flavor_text: "Jellied Rust AGAIN?",
+        cost: newResourceSet({
+            [ACTIONS.discard_card]: 1,
+        }),
+        profits: newResourceSet({
+            [RESOURCES.honey]: 1,
+            [RESOURCES.metal]: 1,
+        }),
+    }),
+
+
+    // tier 3 -------
+
+    newBuilding({
+        name: "Richer Soil",
+        tier: 3,
+        flavor_text: "Loam is life.",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 4,
+        }),
+    }),
+
+    newBuilding({
+        name: "Bionic Lab",
+        tier: 3,
+        flavor_text: "Moist and sterile.",
+        profits: newResourceSet({
+            [RESOURCES.metal]: 1,
+            [RESOURCES.larvae]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Brothel",
+        tier: 3,
+        flavor_text: "Rumor and scandals.",
+        profits: newResourceSet({
+            [RESOURCES.honey]: 1,
+            [RESOURCES.larvae]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Morzoth's Nest",
+        tier: 3,
+        amount: 1,
+        flavor_text: "*Not Morgoth",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 2,
+            [RESOURCES.larvae]: 1,
+        }),
+    }),
+
+    newBuilding({
+        name: "Plaza",
+        tier: 3,
+        amount: 1,
+        flavor_text: "Heaps of hustle.",
+        profits: newResourceSet({
+            [ACTIONS.draw_card]: 3,
+        }),
+    }),
+
+    newBuilding({
+        name: "The Exchange",
+        tier: 3,
+        flavor_text: "Gather what ye may.",
+        profits: newResourceSet({
+            [RESOURCES.clay]: 1,
+            [RESOURCES.honey]: 1,
+            [RESOURCES.metal]: 1,
+        }),
+    }),
+
 ]
 
 const cardData = [
@@ -371,8 +530,8 @@ const onusData = [
             [RESOURCES.honey]: 2,
         }),
     }),
-    
 ]
+
 
 fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData)), 'utf8', (err) => { 
     if (err !== null) {

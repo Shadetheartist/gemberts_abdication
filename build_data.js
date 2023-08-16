@@ -28,8 +28,9 @@ const VALUES = {
     [RESOURCES.larvae]: 3,
     [RESOURCES.clarity]: 5,
 
-    [ACTIONS.discard_card]: 1,
-    [ACTIONS.place_meeple]: -2, // minus because this gains resources
+    // minus because this gains resources
+    [ACTIONS.discard_card]: -1,
+    [ACTIONS.place_meeple]: -2, 
     [ACTIONS.draw_card]: 2,
     [ACTIONS.trash_card]: 2,
     [ACTIONS.explore]: 5,
@@ -82,6 +83,7 @@ const SYMBOL_MAP = {
     '_defence': '🛡',
     '_combatpower': '⚔️',
     '_production': '⚒️',
+    '_discard_card': '⏬',
     '_x': '×',
     '_d1': "⚀",
     '_d2': "⚁",
@@ -108,12 +110,17 @@ function symbolReplace(str){
 
 function resourcesSetString(resourceSet){
     const strings = []
+
     for(const key in resourceSet){
         const symbolKey = '_' + key
         const amount = resourceSet[key]
         for(let i = 0; i < amount; i++){
             strings.push(symbolKey)
         }
+    }
+
+    if(strings.length < 1){
+        return null
     }
 
     return strings.join(' ')
@@ -179,6 +186,11 @@ function newBuilding(data){
     building.cost_str = resourcesSetString(building.cost)
     building.profits_str = resourcesSetString(building.profits)
 
+    building.outcome_str = building.profits_str
+    if (building.cost_str){
+        building.outcome_str = building.cost_str + "▶" + building.profits_str
+    }
+
     return building
 }
 
@@ -206,7 +218,7 @@ const buildingData = [
         // this is a great pollen making plant
         name: "Hellebore Field", 
         tier: 1,
-        flavor_text: "Strike the Earth.",
+        flavor_text: "Handsome Leaves.",
         profits: newResourceSet({
             [RESOURCES.honey]: 1,
         }),

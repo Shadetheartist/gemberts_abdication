@@ -138,7 +138,7 @@ def generate_building_images():
             svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data, 'placeholder_building'))
             svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
             svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_PROFITS', card_data['profits_str'])
+            svg_content = svg_content.replace('PL_OUTCOME', card_data['outcome_str'])
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{card_data["name"]}'

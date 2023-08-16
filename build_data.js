@@ -37,32 +37,35 @@ const VALUES = {
 
 function newResourceSet(data){
     const rs = {
-        [RESOURCES.clay]: data.clay ?? 0,
-        [RESOURCES.metal]: data.metal ?? 0,
-        [RESOURCES.honey]: data.honey ?? 0,
-        [RESOURCES.larvae]: data.larvae ?? 0,
-        [RESOURCES.clarity]: data.clarity ?? 0,
+        [RESOURCES.clay]: data?.clay ?? 0,
+        [RESOURCES.metal]: data?.metal ?? 0,
+        [RESOURCES.honey]: data?.honey ?? 0,
+        [RESOURCES.larvae]: data?.larvae ?? 0,
+        [RESOURCES.clarity]: data?.clarity ?? 0,
         
-        [ACTIONS.discard_card]: data.discard_card ?? 0,
-        [ACTIONS.place_meeple]: data.place_meeple ?? 0,
-        [ACTIONS.draw_card]: data.draw_card ?? 0,
-        [ACTIONS.trash_card]: data.trash_card ?? 0,
-        [ACTIONS.explore]: data.explore ?? 0,
+        [ACTIONS.discard_card]: data?.discard_card ?? 0,
+        [ACTIONS.place_meeple]: data?.place_meeple ?? 0,
+        [ACTIONS.draw_card]: data?.draw_card ?? 0,
+        [ACTIONS.trash_card]: data?.trash_card ?? 0,
+        [ACTIONS.explore]: data?.explore ?? 0,
     }
-
-    // tack on the computed value as it could be useful for balancing
-    rs.value = computeValue(rs)
 
     return rs
 }
 
-function computeValue(resourceSet){
+function computeValue(object){
     let totalValue = 0
     
-    for(const key in resourceSet){
+    for(const key in object.profits){
         const resouceValue = VALUES[key]
-        const numResources = resourceSet[key]
+        const numResources = object.profits[key]
         totalValue += resouceValue * numResources
+    }
+
+    for(const key in object.cost){
+        const resouceValue = VALUES[key]
+        const numResources = object.cost[key]
+        totalValue -= resouceValue * numResources
     }
 
     return totalValue
@@ -103,47 +106,80 @@ function symbolReplace(str){
     return str
 }
 
+function resourcesSetString(resourceSet){
+    const strings = []
+    for(const key in resourceSet){
+        const symbolKey = '_' + key
+        const amount = resourceSet[key]
+        for(let i = 0; i < amount; i++){
+            strings.push(symbolKey)
+        }
+    }
+
+    return strings.join(' ')
+}
+
 
 function newCard(data){
-    return {
+    const card = {
         objectId: newObjectId(),
         type: 'card',
-        tier: data.tier ?? 1,
-        name: data.name,
-        card_text: data.card_text,
-        flavor_text: data.flavor_text,
-        production_power: data.production_power,
-        combat_power: data.combat_power,
-        cost: data.cost
+        tier: data?.tier ?? 0,
+        name: data?.name ?? "",
+        card_text: data?.card_text ?? "",
+        flavor_text: data?.flavor_text ?? "",
+        production_power: data?.production_power ?? 0,
+        combat_power: data?.combat_power ?? 0,
+        cost: data?.cost ?? newResourceSet(),
+        profits: data?.profits ?? newResourceSet(),
     }
+
+    card.value = computeValue(card)
+    card.cost_str = resourcesSetString(card.cost)
+    card.profits_str = resourcesSetString(card.profits)
+
+    return card
 }
 
 function newOnus(data){
-    return {
+    const onus = {
         objectId: newObjectId(),
         type: 'onus',
         // tier can indicate the cost this should target. 
         // If the tier and the resource value are out of line 
         // then a warning can be generated to aid in balance
-        tier: data.tier ?? 1, 
-        name: data.name,
-        flavor_text: data.flavor_text,
-        cost: data.cost
+        tier: data?.tier ?? 0, 
+        name: data?.name ?? "",
+        flavor_text: data?.flavor_text ?? "",
+        cost: data?.cost ?? newResourceSet(),
+        profits: data?.profits ?? newResourceSet(),
     }
+
+    onus.value = computeValue(onus)
+    onus.cost_str = resourcesSetString(onus.cost)
+    onus.profits_str = resourcesSetString(onus.profits)
+
+    return onus
 }
 
 function newBuilding(data){
-    return {
+    const building = {
         objectId: newObjectId(),
         type: 'building',
-        tier: data.tier ?? 0,
-        name: data.name,
-        card_text: data.card_text,
-        flavor_text: data.flavor_text,
-        defence: data.defence,
-        cost: data.cost,
-        profits: data.profits ?? {}
+        tier: data?.tier ?? 0,
+        name: data?.name ?? "",
+        card_text: data?.card_text ?? "",
+        flavor_text: data?.flavor_text ?? "",
+        defence: data?.defence ?? 0,
+        cost: data?.cost ?? newResourceSet(),
+        profits: data?.profits ?? newResourceSet(),
     }
+
+    building.value = computeValue(building)
+    building.cost_str = resourcesSetString(building.cost)
+    building.profits_str = resourcesSetString(building.profits)
+
+    return building
 }
 
 const buildingData = [

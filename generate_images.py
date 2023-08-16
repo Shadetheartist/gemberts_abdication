@@ -22,23 +22,10 @@ def get_cards():
     with open(card_data_path, 'r') as json_file:
         return json.load(json_file)
     
+    
 def get_buildings():
     with open(building_data_path, 'r') as json_file:
         return json.load(json_file)
-
-# turns a cost object into a string
-def cost_str(cost):
-    strs = []
-
-    for c in cost: 
-        symbol_key = '_' + c
-        amount = cost[c]
-        s = symbol_key + '_x' + str(amount)
-        strs.append(s)
-
-    s = ', '.join(strs)
-
-    return s
 
 
 # gets all the images and combines them into a spritesheet
@@ -151,7 +138,7 @@ def generate_building_images():
             svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data, 'placeholder_building'))
             svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
             svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_PROFITS', cost_str(card_data['profits']))
+            svg_content = svg_content.replace('PL_PROFITS', card_data['profits_str'])
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{card_data["name"]}'

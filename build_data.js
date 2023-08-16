@@ -10,6 +10,14 @@ const RESOURCES = {
     clarity: 'clarity',
 }
 
+const ACTIONS = {
+    place_meeple: 'place_meeple',
+    discard_card: 'discard_card',
+    draw_card: 'draw_card',
+    trash_card: 'trash_card',
+    explore: 'explore',
+}
+
 // try to evaluate various actions and resources to a 
 // generalized value to help with game balance
 // trying to stick to a set of numbers from fibonnacci seq
@@ -20,18 +28,26 @@ const VALUES = {
     [RESOURCES.larvae]: 3,
     [RESOURCES.clarity]: 5,
 
-    card_draw: 3,
-    card_trash: 2,
-    explore: 3,
+    [ACTIONS.discard_card]: 1,
+    [ACTIONS.place_meeple]: -2, // minus because this gains resources
+    [ACTIONS.draw_card]: 2,
+    [ACTIONS.trash_card]: 2,
+    [ACTIONS.explore]: 5,
 }
 
 function newResourceSet(data){
     const rs = {
-        [RESOURCES.clay]: data.clay,
-        [RESOURCES.metal]: data.metal,
-        [RESOURCES.honey]: data.honey,
-        [RESOURCES.larvae]: data.larvae,
-        [RESOURCES.clarity]: data.clarity,
+        [RESOURCES.clay]: data.clay ?? 0,
+        [RESOURCES.metal]: data.metal ?? 0,
+        [RESOURCES.honey]: data.honey ?? 0,
+        [RESOURCES.larvae]: data.larvae ?? 0,
+        [RESOURCES.clarity]: data.clarity ?? 0,
+        
+        [ACTIONS.discard_card]: data.discard_card ?? 0,
+        [ACTIONS.place_meeple]: data.place_meeple ?? 0,
+        [ACTIONS.draw_card]: data.draw_card ?? 0,
+        [ACTIONS.trash_card]: data.trash_card ?? 0,
+        [ACTIONS.explore]: data.explore ?? 0,
     }
 
     // tack on the computed value as it could be useful for balancing
@@ -137,7 +153,7 @@ const buildingData = [
         tier: 1,
         flavor_text: "Muck about.",
         profits: newResourceSet({
-            clay: 2,
+            [RESOURCES.clay]: 2,
         }),
     }),
 
@@ -146,7 +162,7 @@ const buildingData = [
         tier: 1,
         flavor_text: "Strike the Earth.",
         profits: newResourceSet({
-            metal: 1,
+            [RESOURCES.metal]: 1,
         }),
     }),
 
@@ -156,7 +172,7 @@ const buildingData = [
         tier: 1,
         flavor_text: "Strike the Earth.",
         profits: newResourceSet({
-            honey: 1,
+            [RESOURCES.honey]: 1,
         }),
     }),
 
@@ -164,139 +180,12 @@ const buildingData = [
         name: "Hatchery",
         tier: 1,
         flavor_text: "Little bug, little bug.",
-        profits: newResourceSet({
-            larvae: 1,
+        cost: newResourceSet({
+            [ACTIONS.discard_card]: 1,
         }),
-    }),
-    
-    
-    newBuilding({
-        name: "Shrine",
-        card_text: "+1 hand size.\n_honey_x1: Draw,discard.",
-        flavor_text: "Instability underpins all.",
-        defence: 2,
-        cost: {
-            production: 2,
-            clay: 2,
-            honey: 1,
-            larvae: 1
-        },
-        profits: {
-            production: 2,
-            clay: 2,
-            honey: 1,
-            larvae: 1
-        }
-    }),
-    newBuilding({
-        name: "Larvae Chambers",
-        card_text: "_production_x3: _larvae_x1.",
-        flavor_text: "Fresh chitin for our Lord.",
-        defence: 2,
-        cost: {
-            production: 2,
-            clay: 2
-        }
-    }),
-    newBuilding({
-        name: "Bee Hive",
-        card_text: "_production_x2: _honey_x1.",
-        flavor_text: "Sweeting bites for later.",
-        defence: 1,
-        cost: {
-            production: 2,
-            larvae: 2
-        }
-    }),
-    
-    newBuilding({
-        name: "Embassy",
-        card_text: "_production_x2: Swap a card in your market with any other market.",
-        flavor_text: "Diplomatic relations are good, for now.",
-        defence: 3,
-        cost: {
-            production: 4,
-            clay: 2,
-            honey: 3
-        }
-    }),
-    newBuilding({
-        name: "Administration",
-        card_text: "_production costs for buildings directly under this are reduced by 1 (not below _production_x1).",
-        flavor_text: "Efficiency is key.",
-        defence: 2,
-        cost: {
-            production: 4,
-            clay: 4,
-            honey: 3
-        }
-    }),
-    newBuilding({
-        name: "Market",
-        card_text: "+2 Market Slots.\n_production_x2, _honey_x1: Swap a card in your market with the central market.",
-        flavor_text: "Efficiency is key.",
-        defence: 2,
-        cost: {
-            production: 4,
-            clay: 3,
-            honey: 1
-        }
-    }),
-    newBuilding({
-        name: "Palace",
-        card_text: "+1_defence for buildings under this.\n+1_combatpower, +1_production for all your bugs.",
-        flavor_text: "Efficiency is key.",
-        defence: 2,
-        cost: {
-            production: 4,
-            clay: 3,
-            honey: 1
-        }
-    }),
-    newBuilding({
-        name: "Pantheon",
-        card_text: "+1 Hand Size\n_production_x2: Draw a card.",
-        flavor_text: "Let him know your love.",
-        defence: 2,
-        cost: {
-            production: 6,
-            clay: 4,
-            honey: 3
-        }
-    }),
-    newBuilding({
-        name: "Wasp Altar",
-        card_text: "_production_x2, sacrifice an unplayed bug: Reveal the top card of the central market, you may use it's abilities this turn.",
-        flavor_text: "SPIKE! SPIKE! SPIKE!",
-        defence: 2,
-        cost: {
-            production: 2,
-            clay: 2,
-            honey: 1
-        }
-    }),
-    newBuilding({
-        name: "Lady's Abode",
-        card_text: "Roll a Die:\n_d1 _d2: _clay_x2\n_d3 _d4: _honey_x1\n_d5 _d6: _larvae_x1",
-        flavor_text: "Lovely.",
-        defence: 3,
-        cost: {
-            production: 4,
-            clay: 6,
-            honey: 4,
-            larvae: 1
-        }
-    }),
-    newBuilding({
-        name: "Factory",
-        card_text: "_x2 yield for _clay and _honey from buildings under this.",
-        flavor_text: "Gyokai!",
-        defence: 2,
-        cost: {
-            production: 6,
-            clay: 6,
-            honey: 4
-        }
+        profits: newResourceSet({
+            [RESOURCES.larvae]: 1,
+        }),
     }),
 ]
 

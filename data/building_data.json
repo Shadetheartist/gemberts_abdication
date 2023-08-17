@@ -1,1 +1,328 @@
-[{"objectId":1,"type":"building","amount":0,"tier":1,"name":"Mud Pit","card_text":"","flavor_text":"Muck about.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":2,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":2,"cost_str":null,"profits_str":"🪨 🪨","outcome_str":"🪨 🪨"},{"objectId":2,"type":"building","amount":0,"tier":1,"name":"Mine","card_text":"","flavor_text":"Strike the Earth.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":1,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":2,"cost_str":null,"profits_str":"💿","outcome_str":"💿"},{"objectId":3,"type":"building","amount":0,"tier":1,"name":"Hellebore Field","card_text":"","flavor_text":"Handsome Leaves.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":1,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":2,"cost_str":null,"profits_str":"🍯","outcome_str":"🍯"},{"objectId":4,"type":"building","amount":0,"tier":1,"name":"Hatchery","card_text":"","flavor_text":"Little bug, little bug.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":1,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":0,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":4,"cost_str":"⏬","profits_str":"🐛","outcome_str":"⏬▶🐛"},{"objectId":5,"type":"building","amount":2,"tier":2,"name":"Orchid Field","card_text":"","flavor_text":"Soil to sustainence.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":1,"metal":0,"honey":1,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":3,"cost_str":null,"profits_str":"🪨 🍯","outcome_str":"🪨 🍯"},{"objectId":6,"type":"building","amount":2,"tier":2,"name":"Materials","card_text":"","flavor_text":"Creation arrives!","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":1,"metal":1,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":3,"cost_str":null,"profits_str":"🪨 💿","outcome_str":"🪨 💿"},{"objectId":7,"type":"building","amount":2,"tier":2,"name":"Incubator","card_text":"","flavor_text":"Bigger bug, medium bug.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":0,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":3,"cost_str":null,"profits_str":"🐛","outcome_str":"🐛"},{"objectId":8,"type":"building","amount":2,"tier":2,"name":"Rich Soil","card_text":"","flavor_text":"Loam is love.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":3,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":3,"cost_str":null,"profits_str":"🪨 🪨 🪨","outcome_str":"🪨 🪨 🪨"},{"objectId":9,"type":"building","amount":2,"tier":2,"name":"Town Square","card_text":"","flavor_text":"Hustle n Bustle.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":2,"trash_card":0,"explore":0},"value":3,"cost_str":null,"profits_str":"🃏 🃏","outcome_str":"🃏 🃏"},{"objectId":10,"type":"building","amount":2,"tier":2,"name":"Workshop","card_text":"","flavor_text":"*Clank Clank*","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":1,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":2,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":"⏬","profits_str":"💿 💿","outcome_str":"⏬▶💿 💿"},{"objectId":11,"type":"building","amount":2,"tier":2,"name":"Jelly Juicer","card_text":"","flavor_text":"It's juicy jelly.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":1,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":2,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":"⏬","profits_str":"🍯 🍯","outcome_str":"⏬▶🍯 🍯"},{"objectId":12,"type":"building","amount":2,"tier":2,"name":"Lunch Room","card_text":"","flavor_text":"Jellied Rust AGAIN?","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":1,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":1,"honey":1,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":"⏬","profits_str":"💿 🍯","outcome_str":"⏬▶💿 🍯"},{"objectId":13,"type":"building","amount":2,"tier":3,"name":"Richer Soil","card_text":"","flavor_text":"Loam is life.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":4,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":4,"cost_str":null,"profits_str":"🪨 🪨 🪨 🪨","outcome_str":"🪨 🪨 🪨 🪨"},{"objectId":14,"type":"building","amount":2,"tier":3,"name":"Bionic Lab","card_text":"","flavor_text":"Moist and sterile.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":1,"honey":0,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":null,"profits_str":"💿 🐛","outcome_str":"💿 🐛"},{"objectId":15,"type":"building","amount":2,"tier":3,"name":"Brothel","card_text":"","flavor_text":"Rumor and scandals.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":1,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":null,"profits_str":"🍯 🐛","outcome_str":"🍯 🐛"},{"objectId":16,"type":"building","amount":1,"tier":3,"name":"Morzoth's Nest","card_text":"","flavor_text":"*Not Morgoth","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":2,"metal":0,"honey":0,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":null,"profits_str":"🪨 🪨 🐛","outcome_str":"🪨 🪨 🐛"},{"objectId":17,"type":"building","amount":1,"tier":3,"name":"Plaza","card_text":"","flavor_text":"Heaps of hustle.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":3,"trash_card":0,"explore":0},"value":4.5,"cost_str":null,"profits_str":"🃏 🃏 🃏","outcome_str":"🃏 🃏 🃏"},{"objectId":18,"type":"building","amount":2,"tier":3,"name":"The Exchange","card_text":"","flavor_text":"Gather what ye may.","defence":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"clay":1,"metal":1,"honey":1,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":5,"cost_str":null,"profits_str":"🪨 💿 🍯","outcome_str":"🪨 💿 🍯"}]
+[
+    {
+        "object_id": 1,
+        "object_type": "building",
+        "amount": 0,
+        "tier": 1,
+        "name": "Mud Pit",
+        "card_text": "",
+        "flavor_text": "Muck about.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 2
+        },
+        "value": null,
+        "profits_str": "🪨 🪨",
+        "outcome_str": "🪨 🪨"
+    },
+    {
+        "object_id": 2,
+        "object_type": "building",
+        "amount": 0,
+        "tier": 1,
+        "name": "Mine",
+        "card_text": "",
+        "flavor_text": "Strike the Earth.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "metal": 1
+        },
+        "value": null,
+        "profits_str": "💿",
+        "outcome_str": "💿"
+    },
+    {
+        "object_id": 3,
+        "object_type": "building",
+        "amount": 0,
+        "tier": 1,
+        "name": "Hellebore Field",
+        "card_text": "",
+        "flavor_text": "Handsome Leaves.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "honey": 1
+        },
+        "value": null,
+        "profits_str": "🍯",
+        "outcome_str": "🍯"
+    },
+    {
+        "object_id": 4,
+        "object_type": "building",
+        "amount": 0,
+        "tier": 1,
+        "name": "Hatchery",
+        "card_text": "",
+        "flavor_text": "Little bug, little bug.",
+        "defence": 0,
+        "cost": {
+            "discard_card": 1
+        },
+        "profits": {
+            "larvae": 1
+        },
+        "value": null,
+        "cost_str": "⏬",
+        "profits_str": "🐛",
+        "outcome_str": "⏬▶🐛"
+    },
+    {
+        "object_id": 5,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Orchid Field",
+        "card_text": "",
+        "flavor_text": "Soil to sustainence.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 1,
+            "honey": 1
+        },
+        "value": null,
+        "profits_str": "🪨 🍯",
+        "outcome_str": "🪨 🍯"
+    },
+    {
+        "object_id": 6,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Materials",
+        "card_text": "",
+        "flavor_text": "Creation arrives!",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 1,
+            "metal": 1
+        },
+        "value": null,
+        "profits_str": "🪨 💿",
+        "outcome_str": "🪨 💿"
+    },
+    {
+        "object_id": 7,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Incubator",
+        "card_text": "",
+        "flavor_text": "Bigger bug, medium bug.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "larvae": 1
+        },
+        "value": null,
+        "profits_str": "🐛",
+        "outcome_str": "🐛"
+    },
+    {
+        "object_id": 8,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Rich Soil",
+        "card_text": "",
+        "flavor_text": "Loam is love.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 3
+        },
+        "value": null,
+        "profits_str": "🪨 🪨 🪨",
+        "outcome_str": "🪨 🪨 🪨"
+    },
+    {
+        "object_id": 9,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Town Square",
+        "card_text": "",
+        "flavor_text": "Hustle n Bustle.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "draw_card": 2
+        },
+        "value": null,
+        "profits_str": "🃏 🃏",
+        "outcome_str": "🃏 🃏"
+    },
+    {
+        "object_id": 10,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Workshop",
+        "card_text": "",
+        "flavor_text": "*Clank Clank*",
+        "defence": 0,
+        "cost": {
+            "discard_card": 1
+        },
+        "profits": {
+            "metal": 2
+        },
+        "value": null,
+        "cost_str": "⏬",
+        "profits_str": "💿 💿",
+        "outcome_str": "⏬▶💿 💿"
+    },
+    {
+        "object_id": 11,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Jelly Juicer",
+        "card_text": "",
+        "flavor_text": "It's juicy jelly.",
+        "defence": 0,
+        "cost": {
+            "discard_card": 1
+        },
+        "profits": {
+            "honey": 2
+        },
+        "value": null,
+        "cost_str": "⏬",
+        "profits_str": "🍯 🍯",
+        "outcome_str": "⏬▶🍯 🍯"
+    },
+    {
+        "object_id": 12,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 2,
+        "name": "Lunch Room",
+        "card_text": "",
+        "flavor_text": "Jellied Rust AGAIN?",
+        "defence": 0,
+        "cost": {
+            "discard_card": 1
+        },
+        "profits": {
+            "metal": 1,
+            "honey": 1
+        },
+        "value": null,
+        "cost_str": "⏬",
+        "profits_str": "💿 🍯",
+        "outcome_str": "⏬▶💿 🍯"
+    },
+    {
+        "object_id": 13,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 3,
+        "name": "Richer Soil",
+        "card_text": "",
+        "flavor_text": "Loam is life.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 4
+        },
+        "value": null,
+        "profits_str": "🪨 🪨 🪨 🪨",
+        "outcome_str": "🪨 🪨 🪨 🪨"
+    },
+    {
+        "object_id": 14,
+        "object_type": "building",
+        "amount": 1,
+        "tier": 3,
+        "name": "Bionic Lab",
+        "card_text": "",
+        "flavor_text": "Moist and sterile.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "metal": 1,
+            "larvae": 1
+        },
+        "value": null,
+        "profits_str": "💿 🐛",
+        "outcome_str": "💿 🐛"
+    },
+    {
+        "object_id": 15,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 3,
+        "name": "Brothel",
+        "card_text": "",
+        "flavor_text": "Rumor and scandals.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "honey": 1,
+            "larvae": 1
+        },
+        "value": null,
+        "profits_str": "🍯 🐛",
+        "outcome_str": "🍯 🐛"
+    },
+    {
+        "object_id": 16,
+        "object_type": "building",
+        "amount": 1,
+        "tier": 3,
+        "name": "Morzoth's Nest",
+        "card_text": "",
+        "flavor_text": "*Not Morgoth",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 2,
+            "larvae": 1
+        },
+        "value": null,
+        "profits_str": "🪨 🪨 🐛",
+        "outcome_str": "🪨 🪨 🐛"
+    },
+    {
+        "object_id": 17,
+        "object_type": "building",
+        "amount": 1,
+        "tier": 3,
+        "name": "Plaza",
+        "card_text": "",
+        "flavor_text": "Heaps of hustle.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "draw_card": 3
+        },
+        "value": null,
+        "profits_str": "🃏 🃏 🃏",
+        "outcome_str": "🃏 🃏 🃏"
+    },
+    {
+        "object_id": 18,
+        "object_type": "building",
+        "amount": 2,
+        "tier": 3,
+        "name": "The Exchange",
+        "card_text": "",
+        "flavor_text": "Gather what ye may.",
+        "defence": 0,
+        "cost": {},
+        "profits": {
+            "clay": 1,
+            "metal": 1,
+            "honey": 1
+        },
+        "value": null,
+        "profits_str": "🪨 💿 🍯",
+        "outcome_str": "🪨 💿 🍯"
+    }
+]

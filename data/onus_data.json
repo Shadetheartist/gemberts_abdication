@@ -1,1 +1,93 @@
-[{"objectId":20,"type":"onus","amount":1,"tier":0,"name":"Collapsed Wall","flavor_text":"","tax":{"clay":2,"metal":1,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"bonus":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":1,"trash_card":0,"explore":0},"value":0,"tax_str":"🪨 🪨 💿"},{"objectId":21,"type":"onus","amount":1,"tier":0,"name":"Rusted Machinery","flavor_text":"","tax":{"clay":0,"metal":2,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"bonus":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":0,"tax_str":"💿 💿"},{"objectId":22,"type":"onus","amount":1,"tier":0,"name":"Unbloodied Altar","flavor_text":"","tax":{"clay":0,"metal":0,"honey":0,"larvae":1,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"bonus":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":0,"tax_str":"🐛"},{"objectId":23,"type":"onus","amount":1,"tier":0,"name":"Greedy Bureaucrats","flavor_text":"","tax":{"clay":0,"metal":0,"honey":2,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"bonus":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"value":0,"tax_str":"🍯 🍯"}]
+[
+    {
+        "object_id": 20,
+        "object_type": "onus",
+        "amount": 1,
+        "tier": 0,
+        "name": "Collapsed Wall",
+        "flavor_text": "",
+        "tax": {
+            "worker": 1,
+            "clay": 1,
+            "metal": 1
+        },
+        "bonus": {
+            "strong": 1
+        },
+        "value": null,
+        "tax_str": "⚒️ 🪨 💿",
+        "bonus_str": "💪"
+    },
+    {
+        "object_id": 21,
+        "object_type": "onus",
+        "amount": 1,
+        "tier": 0,
+        "name": "Rusted Machinery",
+        "flavor_text": "",
+        "tax": {
+            "worker": 1,
+            "metal": 2
+        },
+        "bonus": {
+            "trash_card": 1
+        },
+        "value": null,
+        "tax_str": "⚒️ 💿 💿",
+        "bonus_str": "🗑️"
+    },
+    {
+        "object_id": 22,
+        "object_type": "onus",
+        "amount": 1,
+        "tier": 0,
+        "name": "Unbloodied Altar",
+        "flavor_text": "",
+        "tax": {
+            "smart": 1,
+            "larvae": 1
+        },
+        "bonus": {
+            "draw_card": 1
+        },
+        "value": null,
+        "tax_str": "🧠 🐛",
+        "bonus_str": "🃏"
+    },
+    {
+        "object_id": 23,
+        "object_type": "onus",
+        "amount": 1,
+        "tier": 0,
+        "name": "Bureaucrats",
+        "flavor_text": "",
+        "tax": {
+            "worker": 2,
+            "honey": 1
+        },
+        "bonus": {
+            "smart": 1
+        },
+        "value": null,
+        "tax_str": "⚒️ ⚒️ 🍯",
+        "bonus_str": "🧠"
+    },
+    {
+        "object_id": 24,
+        "object_type": "onus",
+        "amount": 1,
+        "tier": 0,
+        "name": "Broken Fridge",
+        "flavor_text": "",
+        "tax": {
+            "metal": 1,
+            "honey": 1
+        },
+        "bonus": {
+            "worker": 1
+        },
+        "value": null,
+        "tax_str": "💿 🍯",
+        "bonus_str": "⚒️"
+    }
+]

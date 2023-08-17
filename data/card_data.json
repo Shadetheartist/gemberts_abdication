@@ -1,1 +1,20 @@
-[{"objectId":19,"type":"card","amount":1,"tier":0,"name":"Small Man","card_text":"","flavor_text":"Pathetic, unremarkable.","production_power":0,"combat_power":0,"cost":{"clay":0,"metal":0,"honey":0,"larvae":0,"clarity":0,"discard_card":0,"place_meeple":0,"draw_card":0,"trash_card":0,"explore":0},"profits":{"larvae":1},"value":3,"cost_str":null,"profits_str":"🐛"}]
+[
+    {
+        "object_id": 19,
+        "object_type": "card",
+        "amount": 1,
+        "tier": 0,
+        "name": "Small Man",
+        "card_text": "",
+        "flavor_text": "Pathetic, unremarkable.",
+        "production_power": 0,
+        "combat_power": 0,
+        "cost": {},
+        "profits": {},
+        "types": {
+            "worker": 1
+        },
+        "value": null,
+        "type_str": "⚒️"
+    }
+]

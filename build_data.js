@@ -18,6 +18,13 @@ const ACTIONS = {
     explore: 'explore',
 }
 
+const BUG_TYPES = {
+    worker: 'worker',
+    smart: 'smart',
+    strong: 'strong',
+    flying: 'flying',
+}
+
 // try to evaluate various actions and resources to a 
 // generalized value to help with game balance
 // trying to stick to a set of numbers from fibonnacci seq
@@ -34,21 +41,32 @@ const VALUES = {
     [ACTIONS.draw_card]: 1.5,
     [ACTIONS.trash_card]: 1,
     [ACTIONS.explore]: 5,
+
+    [BUG_TYPES.worker]: 0.5,
+    [BUG_TYPES.smart]: 1,
+    [BUG_TYPES.strong]: 1,
+    [BUG_TYPES.flying]: 2,
 }
 
 function newResourceSet(data){
     const rs = {
-        [RESOURCES.clay]: data?.clay ?? 0,
-        [RESOURCES.metal]: data?.metal ?? 0,
-        [RESOURCES.honey]: data?.honey ?? 0,
-        [RESOURCES.larvae]: data?.larvae ?? 0,
-        [RESOURCES.clarity]: data?.clarity ?? 0,
-        
-        [ACTIONS.discard_card]: data?.discard_card ?? 0,
-        [ACTIONS.place_meeple]: data?.place_meeple ?? 0,
-        [ACTIONS.draw_card]: data?.draw_card ?? 0,
-        [ACTIONS.trash_card]: data?.trash_card ?? 0,
-        [ACTIONS.explore]: data?.explore ?? 0,
+
+        [BUG_TYPES.worker]: data?.worker ?? undefined,
+        [BUG_TYPES.smart]: data?.smart ?? undefined,
+        [BUG_TYPES.strong]: data?.strong ?? undefined,
+        [BUG_TYPES.flying]: data?.flying ?? undefined,
+
+        [ACTIONS.discard_card]: data?.discard_card ?? undefined,
+        [ACTIONS.place_meeple]: data?.place_meeple ?? undefined,
+        [ACTIONS.draw_card]: data?.draw_card ?? undefined,
+        [ACTIONS.trash_card]: data?.trash_card ?? undefined,
+        [ACTIONS.explore]: data?.explore ?? undefined,
+
+        [RESOURCES.clay]: data?.clay ?? undefined,
+        [RESOURCES.metal]: data?.metal ?? undefined,
+        [RESOURCES.honey]: data?.honey ?? undefined,
+        [RESOURCES.larvae]: data?.larvae ?? undefined,
+        [RESOURCES.clarity]: data?.clarity ?? undefined,
     }
 
     return rs
@@ -57,16 +75,30 @@ function newResourceSet(data){
 function computeValue(object){
     let totalValue = 0
     
+    // positive rewards
     for(const key in object.profits){
         const resouceValue = VALUES[key]
         const numResources = object.profits[key]
         totalValue += resouceValue * numResources
     }
 
+    for(const key in object.bonus){
+        const resouceValue = VALUES[key]
+        const numResources = object.bonus[key]
+        totalValue += resouceValue * numResources
+    }
+
+    // costs
     for(const key in object.cost){
         const resouceValue = VALUES[key]
         const numResources = object.cost[key]
-        totalValue -= resouceValue * numResources
+        totalValue -= Math.abs(resouceValue * numResources)
+    }
+
+    for(const key in object.tax){
+        const resouceValue = VALUES[key]
+        const numResources = object.tax[key]
+        totalValue -= Math.abs(resouceValue * numResources)
     }
 
     return totalValue
@@ -82,9 +114,14 @@ const SYMBOL_MAP = {
     '_larvae': '🐛',
     '_defence': '🛡',
     '_combatpower': '⚔️',
-    '_production': '⚒️',
+    '_production': '?',
     '_discard_card': '⏬',
     '_draw_card': '🃏',
+    '_trash_card': '🗑️',
+    '_worker': '⚒️',
+    '_smart': '🧠',
+    '_strong': '💪',
+    '_flying': '🪶',
     '_x': '×',
     '_d1': "⚀",
     '_d2': "⚁",
@@ -121,7 +158,7 @@ function resourcesSetString(resourceSet){
     }
 
     if(strings.length < 1){
-        return null
+        return undefined
     }
 
     return strings.join(' ')
@@ -130,8 +167,8 @@ function resourcesSetString(resourceSet){
 
 function newCard(data){
     const card = {
-        objectId: newObjectId(),
-        type: 'card',
+        object_id: newObjectId(),
+        object_type: 'card',
         amount: data?.amount ?? 1,
         tier: data?.tier ?? 0,
         name: data?.name ?? "",
@@ -141,19 +178,23 @@ function newCard(data){
         combat_power: data?.combat_power ?? 0,
         cost: data?.cost ?? newResourceSet(),
         profits: data?.profits ?? newResourceSet(),
+        types: data?.types ?? {
+            [BUG_TYPES.worker]: 1,
+        },
     }
 
     card.value = computeValue(card)
     card.cost_str = resourcesSetString(card.cost)
     card.profits_str = resourcesSetString(card.profits)
+    card.type_str = resourcesSetString(card.types)
 
     return card
 }
 
 function newOnus(data){
     const onus = {
-        objectId: newObjectId(),
-        type: 'onus',
+        object_id: newObjectId(),
+        object_type: 'onus',
         amount: data?.amount ?? 1,
         tier: data?.tier ?? 0, 
         name: data?.name ?? "",
@@ -164,14 +205,15 @@ function newOnus(data){
 
     onus.value = computeValue(onus)
     onus.tax_str = resourcesSetString(onus.tax)
+    onus.bonus_str = resourcesSetString(onus.bonus)
 
     return onus
 }
 
 function newBuilding(data){
     const building = {
-        objectId: newObjectId(),
-        type: 'building',
+        object_id: newObjectId(),
+        object_type: 'building',
         amount: data?.amount ?? 2,
         tier: data?.tier ?? 0,
         name: data?.name ?? "",
@@ -344,6 +386,7 @@ const buildingData = [
     newBuilding({
         name: "Bionic Lab",
         tier: 3,
+        amount: 1,
         flavor_text: "Moist and sterile.",
         profits: newResourceSet({
             [RESOURCES.metal]: 1,
@@ -400,50 +443,73 @@ const cardData = [
         name: "Small Man",
         card_text: "",
         flavor_text: "Pathetic, unremarkable.",
-        profits: {
-            [RESOURCES.larvae]: 1
+        type: {
+            [BUG_TYPES.worker]: 1
         },
     }),
 ]
-
 
 const onusData = [
     newOnus({
         name: "Collapsed Wall",
         flavor_text: "",
         tax: newResourceSet({
-            [RESOURCES.clay]: 2,
+            [BUG_TYPES.worker]: 1,
+            [RESOURCES.clay]: 1,
             [RESOURCES.metal]: 1,
         }),
         bonus: newResourceSet({
-            [ACTIONS.draw_card]: 1,
+            [BUG_TYPES.strong]: 1,
         }),
     }),
     newOnus({
         name: "Rusted Machinery",
         flavor_text: "",
         tax: newResourceSet({
+            [BUG_TYPES.worker]: 1,
             [RESOURCES.metal]: 2,
+        }),
+        bonus: newResourceSet({
+            [ACTIONS.trash_card]: 1,
         }),
     }),
     newOnus({
         name: "Unbloodied Altar",
         flavor_text: "",
         tax: newResourceSet({
+            [BUG_TYPES.smart]: 1,
             [RESOURCES.larvae]: 1,
+        }),
+        bonus: newResourceSet({
+            [ACTIONS.draw_card]: 1,
         }),
     }),
     newOnus({
-        name: "Greedy Bureaucrats",
+        name: "Bureaucrats",
         flavor_text: "",
         tax: newResourceSet({
-            [RESOURCES.honey]: 2,
+            [BUG_TYPES.worker]: 2,
+            [RESOURCES.honey]: 1,
+        }),
+        bonus: newResourceSet({
+            [BUG_TYPES.smart]: 1,
+        }),
+    }),
+    newOnus({
+        name: "Broken Fridge",
+        flavor_text: "",
+        tax: newResourceSet({
+            [RESOURCES.honey]: 1,
+            [RESOURCES.metal]: 1,
+        }),
+        bonus: newResourceSet({
+            [BUG_TYPES.worker]: 1,
         }),
     }),
 ]
 
 
-fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData)), 'utf8', (err) => { 
+fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData, null, 4)), 'utf8', (err) => { 
     if (err !== null) {
         console.log(err)
         return
@@ -451,7 +517,7 @@ fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData)), 'ut
     console.log("created card data file card_data.json") 
 })
 
-fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingData)), 'utf8', (err) => {
+fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingData, null, 4)), 'utf8', (err) => {
     if (err !== null) {
         console.log(err)
         return
@@ -459,7 +525,7 @@ fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingDat
     console.log("created card data file building_data.json") 
 })
 
-fs.writeFile('data/onus_data.json', symbolReplace(JSON.stringify(onusData)), 'utf8', (err) => {
+fs.writeFile('data/onus_data.json', symbolReplace(JSON.stringify(onusData, null, 4)), 'utf8', (err) => {
     if (err !== null) {
         console.log(err)
         return

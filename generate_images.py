@@ -22,6 +22,12 @@ building_data_path = os.path.join(data_path, 'building_data.json')
 onus_data_path = os.path.join(data_path, 'onus_data.json')
 
 
+def default(data, key, default=''):
+    if key in data:
+        return data[key]
+    else:
+        return default
+
 def get_onuses():
     with open(onus_data_path, 'r') as json_file:
         return json.load(json_file)
@@ -92,53 +98,6 @@ def get_art_path(card_data, placeholder='placeholder'):
 
     return card_data['art_path']
 
-# generates an image for each card in the data file
-def generate_card_images():
-    
-    card_imgs = []
-    
-    # For each card in the JSON array
-    for card_data in get_cards():
-
-        template_file_path = os.path.join(assets_path, 'svgs', 'card_template_bug.svg')
-
-        with open(template_file_path, 'r') as template_file:
-            svg_content = template_file.read()
-
-            # Replace the placeholders with the card data
-            svg_content = svg_content.replace('PL_CARDNAME', card_data['name'])
-            svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data))
-            svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
-            svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_PPWR', '⚔️ ' + str(card_data['production_power']))
-            svg_content = svg_content.replace('PL_CPWR', '⚒️ ' + str(card_data['combat_power']))
-
-            # Use Inkscape to export the SVG to an image
-            file_name = f'{card_data["name"]}'
-            file_name = file_name.replace(' ', '_')
-
-            # use the assets path to keep relative link context working
-            svg_file_name = os.path.join(assets_path, 'svgs', f'{file_name}.svg')
-
-            # Save the modified SVG to a temporary file
-            with open(svg_file_name, 'w') as temp_file:
-                temp_file.write(svg_content)
-
-            file_name_with_ext = f'{file_name}.png'
-            output_image_path = os.path.join(card_imgs_path, file_name_with_ext)
-            args = ['inkscape', svg_file_name, '--export-filename', output_image_path, '-w', '407', '-h', '585']
-            print(args)
-            subprocess.run(args)
-
-            card_imgs.append(output_image_path)
-
-        os.remove(svg_file_name)
-
-    print('Done Generating Cards!')
-
-    return card_imgs
-
-
 def generate_building_images():
     card_imgs = []
 
@@ -182,7 +141,6 @@ def generate_building_images():
 
     return card_imgs
 
-
 # generates an image for each card in the data file
 def generate_card_images():
     
@@ -201,8 +159,8 @@ def generate_card_images():
             svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data))
             svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
             svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_PPWR', '⚔️ ' + str(card_data['production_power']))
-            svg_content = svg_content.replace('PL_CPWR', '⚒️ ' + str(card_data['combat_power']))
+            svg_content = svg_content.replace('PL_PROFITS', default(card_data, 'profits_str'))
+            svg_content = svg_content.replace('PL_TYPE', card_data['type_str'])
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{card_data["name"]}'
@@ -221,7 +179,7 @@ def generate_card_images():
             print(args)
             subprocess.run(args)
 
-            card_imgs.append(output_image_path)
+            card_imgs.append((output_image_path, card_data['amount']))
 
         os.remove(svg_file_name)
 
@@ -245,6 +203,7 @@ def generate_onus_images():
             svg_content = svg_content.replace('PL_ART_PATH', get_art_path(onus_data, 'placeholder_building'))
             svg_content = svg_content.replace('PL_FLAVORTEXT', onus_data['flavor_text'])
             svg_content = svg_content.replace('PL_TAX', onus_data['tax_str'])
+            svg_content = svg_content.replace('PL_BONUS', onus_data['bonus_str'])
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{onus_data["name"]}'
@@ -274,11 +233,13 @@ def generate_onus_images():
 
 os.system("node build_data.js")
 
-onus_imgs = generate_onus_images()
-create_spritesheet('onuses', onus_imgs, (10, 7), 1)
 
-# card_imgs = generate_card_images()
-# create_spritesheet('cards', card_imgs, (10, 7), 3)
+card_imgs = generate_card_images()
+create_spritesheet('cards', card_imgs, (10, 7), 3)
+
 
 # building_imgs = generate_building_images()
 # create_spritesheet('buildings', building_imgs, (10, 7), 1)
+
+# onus_imgs = generate_onus_images()
+# create_spritesheet('onuses', onus_imgs, (10, 7), 1)

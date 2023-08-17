@@ -158,13 +158,12 @@ function newOnus(data){
         tier: data?.tier ?? 0, 
         name: data?.name ?? "",
         flavor_text: data?.flavor_text ?? "",
-        cost: data?.cost ?? newResourceSet(),
-        profits: data?.profits ?? newResourceSet(),
+        tax: data?.tax ?? newResourceSet(),
+        bonus: data?.bonus ?? newResourceSet(),
     }
 
     onus.value = computeValue(onus)
-    onus.cost_str = resourcesSetString(onus.cost)
-    onus.profits_str = resourcesSetString(onus.profits)
+    onus.tax_str = resourcesSetString(onus.tax)
 
     return onus
 }
@@ -401,101 +400,9 @@ const cardData = [
         name: "Small Man",
         card_text: "",
         flavor_text: "Pathetic, unremarkable.",
-        production_power: 2,
-        combat_power: 1,
-        cost: {
-            larvae: 1
-        }
-    }),
-    newCard({
-        name: "Nest Tender",
-        card_text: "+1_combatpower when defending.\n+1_larvae when producing _larvae.",
-        flavor_text: "My children are meant for more.",
-        production_power: 1,
-        combat_power: 0,
-        cost: {
-            larvae: 1,
-            honey: 1
-        }
-    }),
-    newCard({
-        name: "Worm",
-        card_text: "+1_clay when producing _clay",
-        flavor_text: "Loam is love, loam is life.",
-        production_power: 1,
-        combat_power: 0,
-        cost: {
-            larvae: 1
-        }
-    }),
-    newCard({
-        name: "Wasp",
-        card_text: "Sacrifice an unplayed bug: add it's stats to this until end of turn.",
-        flavor_text: "STRIKE! STRIKE! STRIKE!",
-        production_power: 1,
-        combat_power: 2,
-        cost: {
-            larvae: 1,
-            clay: 1,
-            honey: 1
-        }
-    }),
-    newCard({
-        name: "Dragonfly",
-        card_text: "Kill weakest defender: +1_honey.",
-        flavor_text: "Loam is love, loam is life.",
-        production_power: 0,
-        combat_power: 3,
-        cost: {
-            larvae: 1,
-            clay: 2,
-            honey: 2
-        }
-    }),
-    newCard({
-        name: "Police",
-        card_text: "+1_combatpower when defending.",
-        flavor_text: "Don't even think of breakening the law!",
-        production_power: 1,
-        combat_power: 2,
-        cost: {
-            larvae: 1,
-            clay: 2
-        }
-    }),
-    newCard({
-        name: "Flying Man",
-        card_text: "Choose the raided resource when raiding with this.",
-        flavor_text: "I see what you have, and what you are.",
-        production_power: 2,
-        combat_power: 2,
-        cost: {
-            larvae: 1,
-            clay: 2,
-            honey: 1
-        }
-    }),
-    newCard({
-        name: "Lady Bug",
-        card_text: "Roll a die:\n_d1_d2_d3: +1_clay.\n_d4_d5: +1_honey.\n_d6: +1_larvae.",
-        flavor_text: "",
-        production_power: 1,
-        combat_power: 1,
-        cost: {
-            larvae: 1,
-            honey: 2
-        }
-    }),
-    newCard({
-        name: "Worker Bee",
-        card_text: "+1_honey when producing honey.",
-        flavor_text: "",
-        production_power: 1,
-        combat_power: 1,
-        cost: {
-            larvae: 1,
-            honey: 2
-        }
+        profits: {
+            [RESOURCES.larvae]: 1
+        },
     }),
 ]
 
@@ -504,29 +411,32 @@ const onusData = [
     newOnus({
         name: "Collapsed Wall",
         flavor_text: "",
-        cost: newResourceSet({
+        tax: newResourceSet({
             [RESOURCES.clay]: 2,
             [RESOURCES.metal]: 1,
+        }),
+        bonus: newResourceSet({
+            [ACTIONS.draw_card]: 1,
         }),
     }),
     newOnus({
         name: "Rusted Machinery",
         flavor_text: "",
-        cost: newResourceSet({
+        tax: newResourceSet({
             [RESOURCES.metal]: 2,
         }),
     }),
     newOnus({
         name: "Unbloodied Altar",
         flavor_text: "",
-        cost: newResourceSet({
+        tax: newResourceSet({
             [RESOURCES.larvae]: 1,
         }),
     }),
     newOnus({
         name: "Greedy Bureaucrats",
         flavor_text: "",
-        cost: newResourceSet({
+        tax: newResourceSet({
             [RESOURCES.honey]: 2,
         }),
     }),
@@ -547,4 +457,12 @@ fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingDat
         return
     }
     console.log("created card data file building_data.json") 
+})
+
+fs.writeFile('data/onus_data.json', symbolReplace(JSON.stringify(onusData)), 'utf8', (err) => {
+    if (err !== null) {
+        console.log(err)
+        return
+    }
+    console.log("created card data file onus_data.json") 
 })

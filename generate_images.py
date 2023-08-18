@@ -160,7 +160,8 @@ def generate_card_images():
             svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
             svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
             svg_content = svg_content.replace('PL_PROFITS', default(card_data, 'profits_str'))
-            svg_content = svg_content.replace('PL_TYPE', card_data['type_str'])
+            svg_content = svg_content.replace('PL_TA', default(card_data, 'type_a'))
+            svg_content = svg_content.replace('PL_TB', default(card_data, 'type_b'))
 
             # Use Inkscape to export the SVG to an image
             file_name = f'{card_data["name"]}'

@@ -15,6 +15,64 @@
             "worker": 1
         },
         "value": null,
-        "type_str": "⚒️"
+        "type_a": "⚒️"
+    },
+    {
+        "object_id": 20,
+        "object_type": "card",
+        "amount": 1,
+        "tier": 0,
+        "name": "Police",
+        "card_text": "",
+        "flavor_text": "Don't even think of breakening the law!",
+        "production_power": 0,
+        "combat_power": 0,
+        "cost": {},
+        "profits": {},
+        "types": {
+            "strong": 1
+        },
+        "value": null,
+        "type_a": "💪"
+    },
+    {
+        "object_id": 21,
+        "object_type": "card",
+        "amount": 1,
+        "tier": 0,
+        "name": "Noble Flappe",
+        "card_text": "",
+        "flavor_text": "",
+        "production_power": 0,
+        "combat_power": 0,
+        "cost": {},
+        "profits": {},
+        "types": {
+            "smart": 1,
+            "flying": 1
+        },
+        "value": null,
+        "type_a": "🧠",
+        "type_b": ""
+    },
+    {
+        "object_id": 22,
+        "object_type": "card",
+        "amount": 1,
+        "tier": 0,
+        "name": "Gembert's Apostle",
+        "card_text": "",
+        "flavor_text": "",
+        "production_power": 0,
+        "combat_power": 0,
+        "cost": {},
+        "profits": {},
+        "types": {
+            "worker": 1,
+            "smart": 1
+        },
+        "value": null,
+        "type_a": "⚒️",
+        "type_b": "🧠"
     }
 ]

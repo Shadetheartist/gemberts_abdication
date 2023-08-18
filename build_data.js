@@ -121,7 +121,7 @@ const SYMBOL_MAP = {
     '_worker': '⚒️',
     '_smart': '🧠',
     '_strong': '💪',
-    '_flying': '🪶',
+    '_flying': '',
     '_x': '×',
     '_d1': "⚀",
     '_d2': "⚁",
@@ -146,7 +146,7 @@ function symbolReplace(str){
     return str
 }
 
-function resourcesSetString(resourceSet){
+function resourcesSetStrings(resourceSet){
     const strings = []
 
     for(const key in resourceSet){
@@ -156,6 +156,12 @@ function resourcesSetString(resourceSet){
             strings.push(symbolKey)
         }
     }
+
+    return strings
+}
+
+function resourcesSetString(resourceSet){
+    const strings = resourcesSetStrings(resourceSet)
 
     if(strings.length < 1){
         return undefined
@@ -178,15 +184,20 @@ function newCard(data){
         combat_power: data?.combat_power ?? 0,
         cost: data?.cost ?? newResourceSet(),
         profits: data?.profits ?? newResourceSet(),
-        types: data?.types ?? {
-            [BUG_TYPES.worker]: 1,
-        },
+        types: data?.types ?? {},
     }
 
     card.value = computeValue(card)
     card.cost_str = resourcesSetString(card.cost)
     card.profits_str = resourcesSetString(card.profits)
-    card.type_str = resourcesSetString(card.types)
+    const types = resourcesSetStrings(card.types)
+    if(types.length > 0){
+        card.type_a = types[0] || undefined
+    }
+    
+    if(types.length > 1){
+        card.type_b = types[1] || undefined
+    }
 
     return card
 }
@@ -443,8 +454,34 @@ const cardData = [
         name: "Small Man",
         card_text: "",
         flavor_text: "Pathetic, unremarkable.",
-        type: {
+        types: {
             [BUG_TYPES.worker]: 1
+        },
+    }),
+    newCard({
+        name: "Police",
+        card_text: "",
+        flavor_text: "Don't even think of breakening the law!",
+        types: {
+            [BUG_TYPES.strong]: 1
+        },
+    }),
+    newCard({
+        name: "Noble Flappe",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.smart]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+    }),
+    newCard({
+        name: "Gembert's Apostle",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.smart]: 1,
         },
     }),
 ]

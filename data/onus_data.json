@@ -1,6 +1,6 @@
 [
     {
-        "object_id": 20,
+        "object_id": 23,
         "object_type": "onus",
         "amount": 1,
         "tier": 0,
@@ -19,7 +19,7 @@
         "bonus_str": "💪"
     },
     {
-        "object_id": 21,
+        "object_id": 24,
         "object_type": "onus",
         "amount": 1,
         "tier": 0,
@@ -37,7 +37,7 @@
         "bonus_str": "🗑️"
     },
     {
-        "object_id": 22,
+        "object_id": 25,
         "object_type": "onus",
         "amount": 1,
         "tier": 0,
@@ -55,7 +55,7 @@
         "bonus_str": "🃏"
     },
     {
-        "object_id": 23,
+        "object_id": 26,
         "object_type": "onus",
         "amount": 1,
         "tier": 0,
@@ -73,7 +73,7 @@
         "bonus_str": "🧠"
     },
     {
-        "object_id": 24,
+        "object_id": 27,
         "object_type": "onus",
         "amount": 1,
         "tier": 0,

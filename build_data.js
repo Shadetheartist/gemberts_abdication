@@ -121,7 +121,7 @@ const SYMBOL_MAP = {
     '_worker': '⚒️',
     '_smart': '🧠',
     '_strong': '💪',
-    '_flying': '',
+    '_flying': '🪶',
     '_x': '×',
     '_d1': "⚀",
     '_d2': "⚁",

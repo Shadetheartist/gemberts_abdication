@@ -236,13 +236,10 @@ os.system("node build_data.js")
 
 
 card_imgs = generate_card_images()
-card_imgs.append((os.path.join(assets_path, 'art', 'card_back.png'), 1))
 create_spritesheet('cards', card_imgs, (10, 7), 3)
 
 building_imgs = generate_building_images()
-building_imgs.append((os.path.join(assets_path, 'art', 'building_back.png'), 1))
 create_spritesheet('buildings', building_imgs, (10, 7), 1)
 
 onus_imgs = generate_onus_images()
-onus_imgs.append((os.path.join(assets_path, 'art', 'onus_back.png'), 1))
 create_spritesheet('onuses', onus_imgs, (10, 7), 1)

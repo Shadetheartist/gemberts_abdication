@@ -452,6 +452,7 @@ const buildingData = [
 const cardData = [
     newCard({
         name: "Small Man",
+        amount: 8,
         card_text: "",
         flavor_text: "Pathetic, unremarkable.",
         types: {
@@ -460,6 +461,7 @@ const cardData = [
     }),
     newCard({
         name: "Police",
+        amount: 4,
         card_text: "",
         flavor_text: "Don't even think of breakening the law!",
         types: {
@@ -468,6 +470,7 @@ const cardData = [
     }),
     newCard({
         name: "Noble Flappe",
+        amount: 3,
         card_text: "",
         flavor_text: "",
         types: {
@@ -477,6 +480,7 @@ const cardData = [
     }),
     newCard({
         name: "Gembert's Apostle",
+        amount: 2,
         card_text: "",
         flavor_text: "",
         types: {

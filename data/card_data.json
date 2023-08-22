@@ -2,7 +2,7 @@
     {
         "object_id": 19,
         "object_type": "card",
-        "amount": 1,
+        "amount": 8,
         "tier": 0,
         "name": "Small Man",
         "card_text": "",
@@ -20,7 +20,7 @@
     {
         "object_id": 20,
         "object_type": "card",
-        "amount": 1,
+        "amount": 4,
         "tier": 0,
         "name": "Police",
         "card_text": "",
@@ -38,7 +38,7 @@
     {
         "object_id": 21,
         "object_type": "card",
-        "amount": 1,
+        "amount": 3,
         "tier": 0,
         "name": "Noble Flappe",
         "card_text": "",
@@ -58,7 +58,7 @@
     {
         "object_id": 22,
         "object_type": "card",
-        "amount": 1,
+        "amount": 2,
         "tier": 0,
         "name": "Gembert's Apostle",
         "card_text": "",

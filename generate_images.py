@@ -168,7 +168,7 @@ if 1:
     )
     create_spritesheet('cards', card_imgs, (10, 7), 3)
 
-if 0:
+if 1:
     building_imgs = generate_images(
         get_buildings(), 
         os.path.join(assets_path, 'svgs', 'template_building.svg'),
@@ -179,7 +179,7 @@ if 0:
     )
     create_spritesheet('buildings', building_imgs, (10, 7), 1)
 
-if 0:
+if 1:
     onus_imgs = generate_images(
         get_onuses(), 
         os.path.join(assets_path, 'svgs', 'template_onus.svg'),

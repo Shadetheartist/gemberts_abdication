@@ -22,7 +22,7 @@ building_data_path = os.path.join(data_path, 'building_data.json')
 onus_data_path = os.path.join(data_path, 'onus_data.json')
 
 
-def default(data, key, default=''):
+def default(data, key, default=None):
     if key in data:
         return data[key]
     else:
@@ -78,6 +78,7 @@ def create_spritesheet(ss_filename, filename_tuples, sheet_dimensions=(10, 7), m
     # Save the spritesheet
     path = os.path.join(dist_path, f'{ss_filename}.png')
     spritesheet.save(path)
+    print('Done creating spritesheet ', path)
 
 # gets the path to a default art png for a card, based on the card name
 def art_path_from_name(name):
@@ -98,148 +99,93 @@ def get_art_path(card_data, placeholder='placeholder'):
 
     return card_data['art_path']
 
-def generate_building_images():
-    card_imgs = []
 
-    for card_data in get_buildings():
+def generate_images(datasource, template_file_path, output_dir, placeholder_art='placeholder', w=407, h=407):
+    imgs = []
 
-        template_file_path = os.path.join(assets_path, 'svgs', 'building_tile_template.svg')
-
-        with open(template_file_path, 'r') as template_file:
-            svg_content = template_file.read()
-
-            # Replace the placeholders with the card data
-            svg_content = svg_content.replace('PL_CARDNAME', card_data['name'])
-            svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data, 'placeholder_building'))
-            svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
-            svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_OUTCOME', card_data['outcome_str'])
-            svg_content = svg_content.replace('PL_TIER', str(card_data['tier']))
-
-            # Use Inkscape to export the SVG to an image
-            file_name = f'{card_data["name"]}'
-            file_name = file_name.replace(' ', '_')
-
-            # use the assets path to keep relative link context working
-            svg_file_name = os.path.join(assets_path, 'svgs', f'{file_name}.svg')
-
-            # Save the modified SVG to a temporary file
-            with open(svg_file_name, 'w') as temp_file:
-                temp_file.write(svg_content)
-
-            file_name_with_ext = f'{file_name}.png'
-            output_image_path = os.path.join(building_imgs_path, file_name_with_ext)
-            args = ['inkscape', svg_file_name, '--export-filename', output_image_path, '-w', '407', '-h', '408']
-            print(args)
-            subprocess.run(args)
-
-            card_imgs.append((output_image_path, card_data['amount']))
-
-        os.remove(svg_file_name)
-
-    print('Done Generating Cards!')
-
-    return card_imgs
-
-# generates an image for each card in the data file
-def generate_card_images():
-    
-    card_imgs = []
-    
-    # For each card in the JSON array
-    for card_data in get_cards():
-
-        template_file_path = os.path.join(assets_path, 'svgs', 'card_template_bug.svg')
+    for data in datasource:
 
         with open(template_file_path, 'r') as template_file:
             svg_content = template_file.read()
 
+            def replace(token, key):
+                if key in data:
+                    value = data[key]
+                    return svg_content.replace(token, str(value))
+                else:
+                    return svg_content.replace(token, '')
+
             # Replace the placeholders with the card data
-            svg_content = svg_content.replace('PL_CARDNAME', card_data['name'])
-            svg_content = svg_content.replace('PL_ART_PATH', get_art_path(card_data))
-            svg_content = svg_content.replace('PL_CARDTEXT', card_data['card_text'])
-            svg_content = svg_content.replace('PL_FLAVORTEXT', card_data['flavor_text'])
-            svg_content = svg_content.replace('PL_PROFITS', default(card_data, 'profits_str'))
-            svg_content = svg_content.replace('PL_TA', default(card_data, 'type_a'))
-            svg_content = svg_content.replace('PL_TB', default(card_data, 'type_b'))
+            svg_content = replace('_NAME', 'name')
+            svg_content = replace('_TEXT', 'card_text')
+            svg_content = replace('_FLAV', 'flavor_text')
+            svg_content = replace('_OUTC', 'outcome_str')
+            svg_content = replace('_TIER', 'tier')
+            svg_content = replace('_PROF', 'profits_str')
+            svg_content = replace('_TYPA', 'type_a')
+            svg_content = replace('_TYPB', 'type_b')
+            svg_content = replace('_TAX', 'tax_str')
+            svg_content = replace('_BOON','bonus_str')
+
+            svg_content = svg_content.replace('_ART', get_art_path(data, placeholder_art))
 
             # Use Inkscape to export the SVG to an image
-            file_name = f'{card_data["name"]}'
+            file_name = f'{data["name"]}'
             file_name = file_name.replace(' ', '_')
 
             # use the assets path to keep relative link context working
-            svg_file_name = os.path.join(assets_path, 'svgs', f'{file_name}.svg')
+            temp_svg_file_name = os.path.join(assets_path, 'svgs', f'{file_name}.svg')
 
             # Save the modified SVG to a temporary file
-            with open(svg_file_name, 'w') as temp_file:
+            with open(temp_svg_file_name, 'w') as temp_file:
                 temp_file.write(svg_content)
 
             file_name_with_ext = f'{file_name}.png'
-            output_image_path = os.path.join(card_imgs_path, file_name_with_ext)
-            args = ['inkscape', svg_file_name, '--export-filename', output_image_path, '-w', '407', '-h', '585']
+            output_image_path = os.path.join(output_dir, file_name_with_ext)
+            args = ['inkscape', temp_svg_file_name, '--export-filename', output_image_path, '-w', str(w), '-h', str(h)]
             print(args)
             subprocess.run(args)
 
-            card_imgs.append((output_image_path, card_data['amount']))
+            imgs.append((output_image_path, default(data, 'amount', 1)))
 
-        os.remove(svg_file_name)
+        os.remove(temp_svg_file_name)
 
-    print('Done Generating Cards!')
+    print('Done generating images!')
 
-    return card_imgs
+    return imgs
 
-
-def generate_onus_images():
-    onus_imgs = []
-
-    for onus_data in get_onuses():
-
-        template_file_path = os.path.join(assets_path, 'svgs', 'onus_tile_template.svg')
-
-        with open(template_file_path, 'r') as template_file:
-            svg_content = template_file.read()
-
-            # Replace the placeholders with the card data
-            svg_content = svg_content.replace('PL_NAME', onus_data['name'])
-            svg_content = svg_content.replace('PL_ART_PATH', get_art_path(onus_data, 'placeholder_building'))
-            svg_content = svg_content.replace('PL_FLAVORTEXT', onus_data['flavor_text'])
-            svg_content = svg_content.replace('PL_TAX', onus_data['tax_str'])
-            svg_content = svg_content.replace('PL_BONUS', onus_data['bonus_str'])
-
-            # Use Inkscape to export the SVG to an image
-            file_name = f'{onus_data["name"]}'
-            file_name = file_name.replace(' ', '_')
-
-            # use the assets path to keep relative link context working
-            svg_file_name = os.path.join(assets_path, 'svgs', f'{file_name}.svg')
-
-            # Save the modified SVG to a temporary file
-            with open(svg_file_name, 'w') as temp_file:
-                temp_file.write(svg_content)
-
-            file_name_with_ext = f'{file_name}.png'
-            output_image_path = os.path.join(onus_imgs_path, file_name_with_ext)
-            args = ['inkscape', svg_file_name, '--export-filename', output_image_path, '-w', '407', '-h', '408']
-            print(args)
-            subprocess.run(args)
-
-            onus_imgs.append((output_image_path, onus_data['amount']))
-
-        os.remove(svg_file_name)
-
-    print('Done Generating Cards!')
-
-    return onus_imgs
-    
 
 os.system("node build_data.js")
 
+if 1:
+    card_imgs = generate_images(
+        get_cards(), 
+        os.path.join(assets_path, 'svgs', 'template_card.svg'),
+        card_imgs_path,
+        'placeholder_card',
+        w=407,
+        h=585,
+    )
+    create_spritesheet('cards', card_imgs, (10, 7), 3)
 
-card_imgs = generate_card_images()
-create_spritesheet('cards', card_imgs, (10, 7), 3)
+if 0:
+    building_imgs = generate_images(
+        get_buildings(), 
+        os.path.join(assets_path, 'svgs', 'template_building.svg'),
+        building_imgs_path,
+        'placeholder_building',
+        w=407,
+        h=407,
+    )
+    create_spritesheet('buildings', building_imgs, (10, 7), 1)
 
-building_imgs = generate_building_images()
-create_spritesheet('buildings', building_imgs, (10, 7), 1)
-
-onus_imgs = generate_onus_images()
-create_spritesheet('onuses', onus_imgs, (10, 7), 1)
+if 0:
+    onus_imgs = generate_images(
+        get_onuses(), 
+        os.path.join(assets_path, 'svgs', 'template_onus.svg'),
+        onus_imgs_path,
+        'placeholder_building',
+        w=407,
+        h=407,
+    )
+    create_spritesheet('onuses', onus_imgs, (10, 7), 1)

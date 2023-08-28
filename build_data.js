@@ -73,6 +73,7 @@ function newResourceSet(data){
 }
 
 function computeValue(object){
+    const costCoefficient = 0.33;
     let totalValue = 0
     
     // positive rewards
@@ -89,10 +90,8 @@ function computeValue(object){
     }
 
     // costs
-    for(const key in object.cost){
-        const resouceValue = VALUES[key]
-        const numResources = object.cost[key]
-        totalValue -= Math.abs(resouceValue * numResources)
+    if(object.cost > 0){
+        totalValue -= object.cost * costCoefficient
     }
 
     for(const key in object.tax){
@@ -107,6 +106,7 @@ function computeValue(object){
 
 
 const SYMBOL_MAP = {
+    '_mana': '🔷',
     '_honey': '🍯',
     '_clay': '🪨',
     '_metal': '💿',
@@ -182,13 +182,13 @@ function newCard(data){
         flavor_text: data?.flavor_text ?? "",
         production_power: data?.production_power ?? 0,
         combat_power: data?.combat_power ?? 0,
-        cost: data?.cost ?? newResourceSet(),
+        cost: data?.cost ?? 0,
+        mana: data?.mana ?? 0,
         profits: data?.profits ?? newResourceSet(),
         types: data?.types ?? {},
     }
 
     card.value = computeValue(card)
-    card.cost_str = resourcesSetString(card.cost)
     card.profits_str = resourcesSetString(card.profits)
     const types = resourcesSetStrings(card.types)
     if(types.length > 0){
@@ -449,46 +449,314 @@ const buildingData = [
 
 ]
 
-const cardData = [
-    newCard({
+const cards = {
+    'small_man': {
         name: "Small Man",
-        amount: 8,
         card_text: "",
         flavor_text: "Pathetic, unremarkable.",
         types: {
             [BUG_TYPES.worker]: 1
         },
-    }),
-    newCard({
+        cost: 0,
+    },
+    'police': {
         name: "Police",
-        amount: 4,
         card_text: "",
         flavor_text: "Don't even think of breakening the law!",
         types: {
             [BUG_TYPES.strong]: 1
         },
-    }),
-    newCard({
+        cost: 1,
+    },
+    'lacewing': {
+        name: "Lacewing",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.flying]: 1
+        },
+        cost: 1,
+    },
+    'lil_spider': {
+        name: "Lil' Spider",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.smart]: 1
+        },
+        cost: 1,
+    },
+    'sacrifice': {
+        name: "Sacrifice",
+        card_text: "_trash_card > gain 2x the trashed card's mana.",
+        flavor_text: "",
+        types: {
+        },
+        cost: 1,
+    },
+    'noble_flappe': {
         name: "Noble Flappe",
-        amount: 3,
         card_text: "",
         flavor_text: "",
         types: {
             [BUG_TYPES.smart]: 1,
             [BUG_TYPES.flying]: 1,
         },
-    }),
-    newCard({
+        cost: 2,
+    },
+    'gemberts_apostle': {
         name: "Gembert's Apostle",
-        amount: 2,
         card_text: "",
         flavor_text: "",
         types: {
             [BUG_TYPES.worker]: 1,
             [BUG_TYPES.smart]: 1,
         },
-    }),
+        cost: 2,
+    },
+    'bee': {
+        name: "Bee",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 2,
+    },
+    'beetle': {
+        name: "Beetle",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 2,
+    },
+    'worm': {
+        name: "Worm",
+        card_text: "_clay",
+        flavor_text: "I eata da poo poo",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 2,
+    },
+    'honey_bee': {
+        name: "Honey Bee",
+        card_text: "_honey",
+        flavor_text: "Sweets!",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 5,
+    },
+    'metalworker': {
+        name: "Metalworker",
+        card_text: "_metal",
+        flavor_text: "Metal!",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 5,
+    },
+    'queen': {
+        name: "Queen",
+        card_text: "_larvae",
+        flavor_text: "Spawn, my minions.",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.smart]: 1,
+        },
+        cost: 6,
+    },
+    'queen_bee': {
+        name: "Queen Bee",
+        card_text: "_honey > _larvae _larvae",
+        flavor_text: "Spawn, my beepers.",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 7,
+    },
+    'queens_guard': {
+        name: "Queen's Guard",
+        card_text: "_discard_card > _draw_card _draw_card",
+        flavor_text: "She doesn't breath, so.",
+        types: {
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 4,
+    },
+    'snail': {
+        name: "Snail",
+        card_text: "A building of your choice costs _worker less from now on.",
+        flavor_text: "I tend to my spot.",
+        cost: 3,
+    },
+    'big_spider': {
+        name: "Big Spider",
+        card_text: "",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.smart]: 1,
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 4,
+    },
+    'dragonfly': {
+        name: "Dragonfly",
+        card_text: "+1 resource when visting an opponent's location.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.strong]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 4,
+    },
+    'grasshopper': {
+        name: "Grasshopper",
+        card_text: "+1 resource when visiting a field.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 4,
+    },
+    'weevil': {
+        name: "Weevil",
+        card_text: "when working, you may exchange one resource for _honey or _metal.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 4,
+    },
+    'cicada': {
+        name: "Cicada",
+        card_text: "spend a resource as though it were any resource when moving up the clarity track.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.smart]: 1,
+        },
+        cost: 4,
+    },
+    'millipede': {
+        name: "Millipede",
+        card_text: "_draw_card _draw_card",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 4,
+    },
+    'centipede': {
+        name: "Centipede",
+        card_text: "_draw_card",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 4,
+    },
+    'roly_poly': {
+        name: "Roly Poly",
+        card_text: "players cannot place workers on your locations this turn.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 4,
+    },
+    'moth': {
+        name: "Moth",
+        card_text: "_discard_card > _draw_card",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 2,
+    },
+    'cocoon': {
+        name: "Cocoon",
+        card_text: "excange this with a card costing 3 or less from the market.",
+        flavor_text: "",
+        types: {
+        },
+        cost: 3,
+    },
+    'caterpillar': {
+        name: "Caterpillar",
+        card_text: "excange this with a card costing 5 or less from the market.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+        },
+        cost: 6,
+    },
+    'reduviidae': {
+        name: "Reduviidae",
+        card_text: "_trash_card with a lower cost than this.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 3,
+    },
+    'praying_mantis': {
+        name: "Praying Mantis",
+        card_text: "_trash_card with a lower cost than this.",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.smart]: 1,
+            [BUG_TYPES.strong]: 1,
+        },
+        cost: 6,
+    },
+    'mason_bee': {
+        name: "Mason Bee",
+        card_text: "_clay _honey",
+        flavor_text: "",
+        types: {
+            [BUG_TYPES.worker]: 1,
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 6,
+    },
+    'fly': {
+        name: "Fly",
+        card_text: "",
+        flavor_text: "buzz buzz",
+        types: {
+            [BUG_TYPES.flying]: 1,
+        },
+        cost: 1,
+        mana: -1,
+    },
+}
+
+const handCards = [
+    newCard({...cards['small_man'], amount: 4}),
+    newCard({...cards['police'], amount: 1}),
+    newCard({...cards['lacewing'], amount: 1}),
+    newCard({...cards['lil_spider'], amount: 1}),
+    newCard({...cards['snail'], amount: 1}),
 ]
+const handCardKeys = handCards.map(e => e.name)
+const nonHandCards = Object.keys(cards).filter(e => {
+    const f = handCardKeys.indexOf(cards[e].name) === -1
+    return f
+})
+
+const marketCards = nonHandCards.map(e => {
+    return newCard({...cards[e], amount: 1})
+})
 
 const onusData = [
     newOnus({
@@ -537,7 +805,7 @@ const onusData = [
         }),
     }),
     newOnus({
-        name: "Broken Fridge",
+        name: "Big Hole",
         flavor_text: "",
         tax: newResourceSet({
             [RESOURCES.honey]: 1,
@@ -549,13 +817,20 @@ const onusData = [
     }),
 ]
 
-
-fs.writeFile('data/card_data.json', symbolReplace(JSON.stringify(cardData, null, 4)), 'utf8', (err) => { 
+fs.writeFile('data/hand_cards_data.json', symbolReplace(JSON.stringify(handCards, null, 4)), 'utf8', (err) => { 
     if (err !== null) {
         console.log(err)
         return
     }
-    console.log("created card data file card_data.json") 
+    console.log("created card data file hand_cards_data.json") 
+})
+
+fs.writeFile('data/market_cards_data.json', symbolReplace(JSON.stringify(marketCards, null, 4)), 'utf8', (err) => { 
+    if (err !== null) {
+        console.log(err)
+        return
+    }
+    console.log("created card data file market_cards_data.json") 
 })
 
 fs.writeFile('data/building_data.json', symbolReplace(JSON.stringify(buildingData, null, 4)), 'utf8', (err) => {

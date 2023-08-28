@@ -17,7 +17,8 @@ card_imgs_path = os.path.join(output_path, 'card_images'); mkdir(card_imgs_path)
 building_imgs_path = os.path.join(output_path, 'building_images'); mkdir(building_imgs_path)
 onus_imgs_path = os.path.join(output_path, 'onus_images'); mkdir(onus_imgs_path)
 art_path = os.path.join(assets_path, 'art'); mkdir(art_path)
-card_data_path = os.path.join(data_path, 'card_data.json')
+hand_card_data_path = os.path.join(data_path, 'hand_cards_data.json')
+market_card_data_path = os.path.join(data_path, 'market_cards_data.json')
 building_data_path = os.path.join(data_path, 'building_data.json')
 onus_data_path = os.path.join(data_path, 'onus_data.json')
 
@@ -28,16 +29,22 @@ def default(data, key, default=None):
     else:
         return default
 
+
 def get_onuses():
     with open(onus_data_path, 'r') as json_file:
         return json.load(json_file)
 
 
-def get_cards():
-    with open(card_data_path, 'r') as json_file:
+def get_hand_cards():
+    with open(hand_card_data_path, 'r') as json_file:
         return json.load(json_file)
     
+
+def get_market_cards():
+    with open(market_card_data_path, 'r') as json_file:
+        return json.load(json_file)
     
+
 def get_buildings():
     with open(building_data_path, 'r') as json_file:
         return json.load(json_file)
@@ -125,7 +132,9 @@ def generate_images(datasource, template_file_path, output_dir, placeholder_art=
             svg_content = replace('_TYPA', 'type_a')
             svg_content = replace('_TYPB', 'type_b')
             svg_content = replace('_TAX', 'tax_str')
-            svg_content = replace('_BOON','bonus_str')
+            svg_content = replace('_BOON', 'bonus_str')
+            svg_content = replace('_COST', 'cost')
+            svg_content = replace('_MANA', 'mana')
 
             svg_content = svg_content.replace('_ART', get_art_path(data, placeholder_art))
 
@@ -159,16 +168,26 @@ os.system("node build_data.js")
 
 if 1:
     card_imgs = generate_images(
-        get_cards(), 
+        get_hand_cards(), 
         os.path.join(assets_path, 'svgs', 'template_card.svg'),
         card_imgs_path,
         'placeholder_card',
         w=407,
         h=585,
     )
-    create_spritesheet('cards', card_imgs, (10, 7), 3)
+    create_spritesheet('hand_cards', card_imgs, (10, 7), 3)
 
-if 1:
+    card_imgs = generate_images(
+        get_market_cards(), 
+        os.path.join(assets_path, 'svgs', 'template_card.svg'),
+        card_imgs_path,
+        'placeholder_card',
+        w=407,
+        h=585,
+    )
+    create_spritesheet('market_cards', card_imgs, (10, 7), 3)
+
+if 0:
     building_imgs = generate_images(
         get_buildings(), 
         os.path.join(assets_path, 'svgs', 'template_building.svg'),
@@ -179,7 +198,7 @@ if 1:
     )
     create_spritesheet('buildings', building_imgs, (10, 7), 1)
 
-if 1:
+if 0:
     onus_imgs = generate_images(
         get_onuses(), 
         os.path.join(assets_path, 'svgs', 'template_onus.svg'),

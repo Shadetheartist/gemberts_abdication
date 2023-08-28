@@ -478,7 +478,7 @@ const cards = {
         cost: 1,
     },
     'lil_spider': {
-        name: "Lil' Spider",
+        name: "Lil Spider",
         card_text: "",
         flavor_text: "",
         types: {

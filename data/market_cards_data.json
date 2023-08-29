@@ -1,6 +1,6 @@
 [
     {
-        "object_id": 24,
+        "object_id": 25,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -16,7 +16,7 @@
         "value": null
     },
     {
-        "object_id": 25,
+        "object_id": 26,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -37,7 +37,7 @@
         "type_b": "🪶"
     },
     {
-        "object_id": 26,
+        "object_id": 27,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -58,7 +58,7 @@
         "type_b": "🧠"
     },
     {
-        "object_id": 27,
+        "object_id": 28,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -79,7 +79,7 @@
         "type_b": "🪶"
     },
     {
-        "object_id": 28,
+        "object_id": 29,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -100,7 +100,7 @@
         "type_b": "💪"
     },
     {
-        "object_id": 29,
+        "object_id": 30,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -119,7 +119,7 @@
         "type_a": "⚒️"
     },
     {
-        "object_id": 30,
+        "object_id": 31,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -140,7 +140,7 @@
         "type_b": "🪶"
     },
     {
-        "object_id": 31,
+        "object_id": 32,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -159,27 +159,6 @@
         "value": null,
         "type_a": "⚒️",
         "type_b": "💪"
-    },
-    {
-        "object_id": 32,
-        "object_type": "card",
-        "amount": 1,
-        "tier": 0,
-        "name": "Queen",
-        "card_text": "🐛",
-        "flavor_text": "Spawn, my minions.",
-        "production_power": 0,
-        "combat_power": 0,
-        "cost": 6,
-        "mana": 0,
-        "profits": {},
-        "types": {
-            "worker": 1,
-            "smart": 1
-        },
-        "value": null,
-        "type_a": "⚒️",
-        "type_b": "🧠"
     },
     {
         "object_id": 33,

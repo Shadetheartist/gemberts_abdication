@@ -1,8 +1,19 @@
 import json
 import os
+import sys
 import subprocess
 from PIL import Image
 
+
+def should_regenerate(obj):
+    if 'name' not in obj:
+        return True
+    
+    if len(sys.argv) < 2:
+        return True
+
+    arg_name = sys.argv[1]
+    return arg_name.lower().strip() == str(obj['name']).lower().strip()
 
 # quick util fn to make sure the dirs exist 
 def mkdir(dir):
@@ -53,6 +64,8 @@ def get_buildings():
 # gets all the images and combines them into a spritesheet
 # based on the size of the first file and the specified dimensions
 def create_spritesheet(ss_filename, filename_tuples, sheet_dimensions=(10, 7), margin=3):
+
+
     # Load the first image to get dimensions
     img_sample = Image.open(filename_tuples[0][0])
     width, height = img_sample.size
@@ -110,6 +123,7 @@ def get_art_path(card_data, placeholder='placeholder'):
 def generate_images(datasource, template_file_path, output_dir, placeholder_art='placeholder', w=407, h=407):
     imgs = []
 
+    
     for data in datasource:
 
         with open(template_file_path, 'r') as template_file:
@@ -151,9 +165,11 @@ def generate_images(datasource, template_file_path, output_dir, placeholder_art=
 
             file_name_with_ext = f'{file_name}.png'
             output_image_path = os.path.join(output_dir, file_name_with_ext)
-            args = ['inkscape', temp_svg_file_name, '--export-filename', output_image_path, '-w', str(w), '-h', str(h)]
-            print(args)
-            subprocess.run(args)
+
+            if should_regenerate(data):
+                args = ['inkscape', temp_svg_file_name, '--export-filename', output_image_path, '-w', str(w), '-h', str(h)]
+                print(args)
+                subprocess.run(args)
 
             imgs.append((output_image_path, default(data, 'amount', 1)))
 
@@ -165,6 +181,8 @@ def generate_images(datasource, template_file_path, output_dir, placeholder_art=
 
 
 os.system("node build_data.js")
+
+
 
 if 1:
     card_imgs = generate_images(

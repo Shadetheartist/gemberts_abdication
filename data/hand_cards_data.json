@@ -23,6 +23,27 @@
         "object_type": "card",
         "amount": 1,
         "tier": 0,
+        "name": "Queen",
+        "card_text": "🗑️ > 🐛",
+        "flavor_text": "Spawn, my minions.",
+        "production_power": 0,
+        "combat_power": 0,
+        "cost": 6,
+        "mana": 0,
+        "profits": {},
+        "types": {
+            "worker": 1,
+            "smart": 1
+        },
+        "value": null,
+        "type_a": "⚒️",
+        "type_b": "🧠"
+    },
+    {
+        "object_id": 21,
+        "object_type": "card",
+        "amount": 1,
+        "tier": 0,
         "name": "Police",
         "card_text": "",
         "flavor_text": "Don't even think of breakening the law!",
@@ -38,7 +59,7 @@
         "type_a": "💪"
     },
     {
-        "object_id": 21,
+        "object_id": 22,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -57,7 +78,7 @@
         "type_a": "🪶"
     },
     {
-        "object_id": 22,
+        "object_id": 23,
         "object_type": "card",
         "amount": 1,
         "tier": 0,
@@ -76,7 +97,7 @@
         "type_a": "🧠"
     },
     {
-        "object_id": 23,
+        "object_id": 24,
         "object_type": "card",
         "amount": 1,
         "tier": 0,

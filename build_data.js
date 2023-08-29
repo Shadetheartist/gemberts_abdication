@@ -569,7 +569,7 @@ const cards = {
     },
     'queen': {
         name: "Queen",
-        card_text: "_larvae",
+        card_text: "_trash_card > _larvae",
         flavor_text: "Spawn, my minions.",
         types: {
             [BUG_TYPES.worker]: 1,
@@ -747,6 +747,7 @@ const cards = {
 
 const handCards = [
     newCard({...cards['small_man'], amount: 4}),
+    newCard({...cards['queen'], amount: 1}),
     newCard({...cards['police'], amount: 1}),
     newCard({...cards['lacewing'], amount: 1}),
     newCard({...cards['lil_spider'], amount: 1}),

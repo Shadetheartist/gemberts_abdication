@@ -4,6 +4,7 @@ const fs = require('fs')
 
 const RESOURCES = {
     clay: 'clay',
+    grass: 'grass',
     metal: 'metal',
     honey: 'honey',
     larvae: 'larvae',
@@ -30,6 +31,7 @@ const BUG_TYPES = {
 // trying to stick to a set of numbers from fibonnacci seq
 const VALUES = {
     [RESOURCES.clay]: 1,
+    [RESOURCES.grass]: 1,
     [RESOURCES.metal]: 2,
     [RESOURCES.honey]: 2,
     [RESOURCES.larvae]: 3,
@@ -63,6 +65,7 @@ function newResourceSet(data){
         [ACTIONS.explore]: data?.explore ?? undefined,
 
         [RESOURCES.clay]: data?.clay ?? undefined,
+        [RESOURCES.grass]: data?.grass ?? undefined,
         [RESOURCES.metal]: data?.metal ?? undefined,
         [RESOURCES.honey]: data?.honey ?? undefined,
         [RESOURCES.larvae]: data?.larvae ?? undefined,
@@ -109,6 +112,7 @@ const SYMBOL_MAP = {
     '_mana': '🔷',
     '_honey': '🍯',
     '_clay': '🪨',
+    '_grass': '🌿',
     '_metal': '💿',
     '_clarity': '✨',
     '_larvae': '🐛',
